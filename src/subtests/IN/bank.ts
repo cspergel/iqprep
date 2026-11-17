@@ -1,5 +1,5 @@
 /**
- * Information bank — ORIGINAL general-knowledge questions written for Brain Camp (not WISC items).
+ * Information bank — ORIGINAL general-knowledge questions written for IQ Prep (not WISC items).
  * Each item has exactly one correct answer (1 point) and three definitely-wrong answers (0).
  * Items are answerable from the words alone (no pictures needed).
  */

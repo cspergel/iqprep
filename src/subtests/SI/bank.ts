@@ -1,5 +1,5 @@
 /**
- * Similarities bank — ORIGINAL pairs written for Brain Camp (not WISC items).
+ * Similarities bank — ORIGINAL pairs written for IQ Prep (not WISC items).
  * Every item is a spoken/written pair: "How are X and Y alike?"
  *   2 points: the key category or essential shared idea ("both are fruit").
  *   1 point:  a concrete, partial or minor likeness ("both are sweet").

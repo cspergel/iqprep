@@ -1,13 +1,23 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "braincamp",
+  "name": "iqprep",
+  "main": "worker/index.ts",
   "compatibility_date": "2026-11-01",
   "assets": {
     "directory": "./dist-site",
-    "html_handling": "auto-trailing-slash"
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": true
   },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "iqprep", "database_id": "4fe88677-63e5-4334-b268-6541d6e851ed", "migrations_dir": "migrations" }
+  ],
   "routes": [
+    { "pattern": "iqprep.app", "custom_domain": true },
+    { "pattern": "www.iqprep.app", "custom_domain": true },
     { "pattern": "braincamp.app", "custom_domain": true },
     { "pattern": "www.braincamp.app", "custom_domain": true }
-  ]
+  ],
+  "observability": { "enabled": true }
 }

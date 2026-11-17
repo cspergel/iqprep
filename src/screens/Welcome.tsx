@@ -24,8 +24,8 @@ export function Welcome({ adding = false }: { adding?: boolean }) {
           <div className="row" style={{ flexWrap: 'nowrap', alignItems: 'flex-end' }}>
             <div className="spacer">
               <div className="small" style={{ opacity: 0.85, fontWeight: 700 }}>Welcome to</div>
-              <h1 style={{ margin: 0 }}>Brain Camp</h1>
-              <p style={{ margin: '6px 0 0' }}>Puzzles, word games, memory missions and speed races — a camp for growing brains.</p>
+              <h1 style={{ margin: 0 }}>IQ Prep</h1>
+              <p style={{ margin: '6px 0 0' }}>Puzzles, word games, memory missions and speed races — a camp for curious minds.</p>
             </div>
             <Mascot mood="wave" size={120} className="float" />
           </div>
@@ -45,7 +45,7 @@ export function Welcome({ adding = false }: { adding?: boolean }) {
             <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} max={dayKey()} style={inputStyle} />
             <span className="small muted">
               {age === null ? 'Used only to pick the right difficulty and compare with same-age kids.'
-                : ageOk ? `Age ${formatAge(age)} — games will be tuned for this age.` : 'Brain Camp is designed for ages 4 to 16.'}
+                : ageOk ? `Age ${formatAge(age)} — games will be tuned for this age.` : 'IQ Prep is designed for ages 4 to 16.'}
             </span>
           </label>
 
@@ -64,7 +64,7 @@ export function Welcome({ adding = false }: { adding?: boolean }) {
           <div className="card flat tint stack" style={{ gap: 8 }}>
             <strong>👋 For grown-ups</strong>
             <ul className="small" style={{ margin: 0, paddingLeft: 20 }}>
-              <li>Brain Camp builds the real thinking skills that WISC-V style assessments look at: words and ideas, shapes and space, patterns and logic, memory, and speed. Every question is original — none are real test items.</li>
+              <li>IQ Prep builds the real thinking skills that WISC-V style assessments look at: words and ideas, shapes and space, patterns and logic, memory, and speed. Every question is original — none are real test items.</li>
               <li>Little and often works best: about 15 minutes a day, a few days a week. Stop heavy test-style practice 1–2 weeks before a scheduled evaluation.</li>
               <li>If your child is being evaluated, tell the psychologist what practice they've done. Too much practice can make results less accurate.</li>
               <li>Practice scores are estimates for tracking progress. They are not IQ scores and can't predict a real result.</li>

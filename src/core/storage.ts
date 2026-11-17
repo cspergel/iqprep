@@ -110,7 +110,7 @@ function write(key: string, value: unknown): void {
   try {
     localStorage.setItem(key, JSON.stringify(value));
   } catch (e) {
-    console.warn('Brain Camp: could not save', e);
+    console.warn('IQ Prep: could not save', e);
   }
 }
 
@@ -171,7 +171,7 @@ export function makeBackup(profile: Profile, data: ProfileData): Backup {
 export function parseBackup(text: string): Backup {
   const obj = JSON.parse(text);
   if (!obj || obj.app !== 'brain-camp' || obj.version !== 1 || !obj.profile?.id || !obj.data) {
-    throw new Error('This file is not a Brain Camp backup.');
+    throw new Error('This file is not an IQ Prep (or Brain Camp) backup.');
   }
   return obj as Backup;
 }

@@ -14,6 +14,7 @@ import { BarList, ChartWithTable, DotPlot, LineChart, type DotRow } from '../ui/
 import { Mascot } from '../ui/kit';
 import { inputStyle } from './Welcome';
 import { Gallery } from './Gallery';
+import { ParentAccount } from './ParentAccount';
 
 const TABS: [string, string][] = [
   ['overview', 'Overview'], ['reports', 'Score reports'], ['progress', 'Progress'], ['skills', 'Skills'], ['samples', 'Question gallery'],
@@ -535,7 +536,7 @@ function SettingsView() {
     const blob = new Blob([JSON.stringify(makeBackup(profile, data), null, 1)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = `brain-camp-${profile.name.toLowerCase()}-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `iq-prep-${profile.name.toLowerCase()}-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(a.href);
   };
@@ -604,8 +605,12 @@ function SettingsView() {
         </div>
       </Section>
 
+      <Section title="Parent account (optional)">
+        <ParentAccount />
+      </Section>
+
       <Section title="Your data">
-        <p className="small" style={{ marginTop: 0 }}>All progress is stored only in this browser. Export a backup to move it to another device.</p>
+        <p className="small" style={{ marginTop: 0 }}>Progress is stored in this browser. Export a backup file, or use a parent account above, to move it to another device.</p>
         <div className="row">
           <button className="btn ghost" onClick={exportData}>⬇️ Export backup</button>
           <button className="btn ghost" onClick={() => fileRef.current?.click()}>⬆️ Import backup</button>
@@ -678,7 +683,7 @@ function GuideView() {
           <li><strong>Complementary:</strong> Naming Speed (NSI), Symbol Translation (STI), Storage & Retrieval (SRI) — related to reading/math fluency and learning, not intelligence.</li>
         </ul>
       </Section>
-      <Section title="Using Brain Camp well">
+      <Section title="Using IQ Prep well">
         <ul>
           <li><strong>Little and often.</strong> 10–20 minutes, 3–5 days a week beats long sessions. The daily quest mixes areas (interleaving) and brings back missed skills on a schedule (spaced retrieval).</li>
           <li><strong>Praise effort and strategy</strong>, not being “smart”. Mistakes are part of the plan — challenges are designed so everyone misses some.</li>
@@ -687,7 +692,7 @@ function GuideView() {
           <li><strong>Before an evaluation:</strong> stop intensive test-style practice 1–2 weeks before, and tell the psychologist about the practice. The goal is comfort with the formats and real skills, not inflated scores.</li>
           <li><strong>Honest limits:</strong> “brain training” improves the trained tasks; it doesn’t reliably raise general intelligence. The broader skills here (vocabulary, reasoning, number sense, attention) are valuable in their own right.</li>
         </ul>
-        <p className="small muted">Brain Camp is not affiliated with or endorsed by Pearson or the Wechsler tests. WISC® is a trademark of NCS Pearson, Inc. All items are original. Data never leaves this device.</p>
+        <p className="small muted">IQ Prep is not affiliated with or endorsed by Pearson or the Wechsler tests. WISC® is a trademark of NCS Pearson, Inc. All items are original. Data never leaves this device.</p>
       </Section>
     </>
   );

@@ -1,4 +1,4 @@
-# Brain Camp 🏕️
+# IQ Prep 🏕️
 
 A playful, research-informed practice kit for the thinking skills measured by WISC-V-style assessments.
 It's built for children aged 4–16, with gentler practice for campers under 9.
@@ -45,6 +45,20 @@ It's built for children aged 4–16, with gentler practice for campers under 9.
 
 See `src/core/scoring.ts`.
 
+## iqprep.app (live site)
+
+- `site/` is the parents' landing page, privacy page and 404; the game builds into `/play/`.
+- `worker/index.ts` serves both, adds the parent-account API (`/api/*`, Cloudflare D1, schema in `migrations/`),
+  and redirects braincamp.app and www hosts to https://iqprep.app.
+- **Parent accounts are adults only:** a neutral birth-month question (not stored); an under-18 answer closes
+  sign-up on that browser. Backups are minimised in `src/core/cloud.ts` before upload: names become
+  "Camper 1"…, birthdays are cut to the month, the grown-up PIN is dropped.
+- **Ads are off.** `site/ads.js` loads non-personalised AdSense on the parents' pages only (never in `/play/`)
+  once a publisher ID and slot are filled in. Before that: mark the site child-directed in AdSense, add a
+  consent message for EEA/UK visitors, add `ads.txt`, and update the privacy page.
+- Deploy: `npm run deploy` (builds `dist-site/` and runs `wrangler deploy`). New migrations:
+  `npx wrangler d1 migrations apply iqprep --remote`.
+
 ## Develop
 
 ```bash
@@ -70,7 +84,7 @@ built-in word banks, so hosting is free and the app works offline.
 
 1. Open the site in **Safari**. The site must be served over HTTPS; Netlify, Cloudflare Pages and GitHub Pages all do this.
 2. Tap **Share → Add to Home Screen**.
-3. Launch Brain Camp from the new icon once while online. After that it works without internet.
+3. Launch IQ Prep from the new icon once while online. After that it works without internet.
 
 Notes:
 

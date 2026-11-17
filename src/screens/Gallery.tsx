@@ -87,7 +87,7 @@ export function Gallery({ age }: { age: number }) {
     const blob = new Blob([JSON.stringify(flags, null, 1)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = `brain-camp-flagged-questions-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `iq-prep-flagged-questions-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(a.href);
   };

@@ -1,5 +1,5 @@
 /**
- * Vocabulary bank — ORIGINAL items written for Brain Camp (not WISC items).
+ * Vocabulary bank — ORIGINAL items written for IQ Prep (not WISC items).
  *  - Picture items (young): an emoji is shown, "What is this called?"
  *      2 = the exact name, 1 = a broader / related name ("an animal"), 0 = a different thing.
  *  - Word items: "What does ___ mean?"

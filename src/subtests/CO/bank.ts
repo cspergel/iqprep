@@ -1,5 +1,5 @@
 /**
- * Comprehension bank — ORIGINAL practical-reasoning questions written for Brain Camp (not WISC items).
+ * Comprehension bank — ORIGINAL practical-reasoning questions written for IQ Prep (not WISC items).
  *   2 points: the most responsible action, or the key reason. Where a full answer needs TWO
  *             different reasons (e.g. safety AND fairness), the 2-point choice names both.
  *   1 point:  partly right — one small piece, or "because it's the rule".

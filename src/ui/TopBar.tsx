@@ -29,13 +29,13 @@ export function TopBar() {
         @media (max-width: 520px) { .topnav { order: 3; width: 100%; justify-content: space-between; } .topnav .btn { flex: 1; padding: 4px 0 !important; } }
       `}</style>
       <div className="page row" style={{ padding: '10px 16px', gap: 10, flexWrap: 'wrap' }}>
-        <button onClick={() => navigate('/')} aria-label="Brain Camp home"
+        <button onClick={() => navigate('/')} aria-label="IQ Prep home"
           style={{ background: 'none', border: 0, color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8, padding: 0 }}>
           <svg width={38} height={38} viewBox="0 0 64 64" aria-hidden>
             <path d="M32 6 58 56H6z" fill="#e8743b" stroke="#1d2b2a" strokeWidth={4} strokeLinejoin="round" />
             <path d="M32 26 44 56H20z" fill="#f4c542" stroke="#1d2b2a" strokeWidth={3} strokeLinejoin="round" />
           </svg>
-          <span className="brand-name" style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '1.5rem' }}>Brain Camp</span>
+          <span className="brand-name" style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '1.5rem' }}>IQ Prep</span>
         </button>
         <nav className="row topnav" style={{ gap: 6, flexWrap: 'nowrap' }} aria-label="Main">
           {tab('/', 'Map', '🗺️')}

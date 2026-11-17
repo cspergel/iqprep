@@ -1,8 +1,8 @@
-/* Hallmark · shape: Counter-led product page (Marquee Hero swapped: the product needs showing at once) · genre: playful · theme: Hum (deal 1/3, seed brain-camp-free-thinking-skills-8acf·f90ce2fb·2026-11-17·r0) · job: try · draw: 2c4fba
- * hero: Counter · nav: edge-aligned (masthead swapped: the genre file says it fights playful) · footer: colophon block · imagery: the product (real Brain Camp screenshots) · signature: the real camp map as a torn sheet of cut paper, the one big thing on the first screen
+/* Hallmark · shape: Counter-led search page, sister to braincamp.app · genre: playful · theme: Hum (by request: shares braincamp.app's look) · job: try · draw: 2c4fba
+ * hero: Counter · nav: edge-aligned (masthead swapped: the genre file says it fights playful) · footer: colophon block · imagery: the product (real Brain Camp screenshots) · signature: a real Pattern Finder question on a torn sheet, the first thing a parent sees
  * axes: light/rounded-sans/chromatic-yellow · posture: full-palette · contrast: pass · fold: pass · v2.0.0 */
 /* Hallmark · answered 49: the three tabs are card-stock tiles holding a title and one line; the line hides under 60rem · answered F4: .btn is the card-stock secondary, not a filled primary */
-/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: the grown-ups facts are words, so they sit as a ruled list beside one big head rather than as tiles */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: the question styles are words, so they run as a ruled index beside one screen */
 @import url("./tokens.css");
 @import url("./base.css");
 
@@ -142,3 +142,35 @@ mark { background: color-mix(in oklab, var(--color-accent) 55%, transparent); co
   .nav__link { display: none; }
   .tab b { font-size: var(--text-sm); }
 }
+
+/* ---------- iqprep.app additions ---------- */
+.areas { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-2xl); align-items: start; }
+.areas .sheet { position: sticky; top: var(--space-2xl); }
+.areas .sheet img { max-height: 560px; width: auto; margin-inline: auto; }
+.index { list-style: none; margin: 0; padding: 0; }
+.index li { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: var(--space-lg); padding-block: var(--space-lg); border-top: 1px solid var(--color-rule); }
+.index li:last-child { border-bottom: 1px solid var(--color-rule); }
+.index b { font: 600 var(--text-title)/1.2 var(--font-display); letter-spacing: var(--tracking-display); }
+.index span { color: var(--color-ink-2); }
+.why { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-columns); margin-top: var(--space-2xl); }
+.why div { padding-top: var(--space-md); border-top: 2px solid color-mix(in oklab, var(--color-ink) 70%, transparent); }
+.why b { display: block; font: 600 var(--text-title)/1.2 var(--font-display); letter-spacing: var(--tracking-display); }
+.why p { margin-top: var(--space-sm); color: var(--color-ink-2); }
+@media (max-width: 60rem) {
+  .areas, .why { grid-template-columns: minmax(0, 1fr); }
+  .areas .sheet { position: static; }
+  .index li { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xs); }
+}
+
+/* An ad slot for the parents' pages only; hidden until /ads.js has a publisher ID. Never inside the game. */
+.ad { padding-block: var(--space-xl); }
+.ad__label { font-size: var(--text-sm); color: var(--color-muted); margin-bottom: var(--space-xs); }
+.ad__slot { min-height: 120px; border-radius: var(--radius-stock); background: var(--color-paper-2); }
+
+/* Text pages (privacy, not found) */
+.doc { max-width: 46rem; padding-block: var(--space-2xl) var(--section-gap-s); }
+.doc h1 { font-size: var(--text-display-s); max-width: 18ch; }
+.doc h2 { font-size: var(--text-2xl); margin-top: var(--space-2xl); }
+.doc p, .doc li { margin-top: var(--space-md); max-width: 65ch; color: var(--color-ink-2); }
+.doc ul { padding-left: var(--space-lg); }
+.doc .meta { margin-top: var(--space-md); font-size: var(--text-sm); color: var(--color-muted); }

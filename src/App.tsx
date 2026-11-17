@@ -64,7 +64,7 @@ function Shell() {
       </main>
       {!playing && (
         <footer className="page small muted center" style={{ paddingBottom: 30 }}>
-          Brain Camp is an independent practice tool. Not affiliated with or endorsed by Pearson or the Wechsler tests.
+          IQ Prep is an independent practice tool. Not affiliated with or endorsed by Pearson or the Wechsler tests.
           WISC® is a trademark of NCS Pearson, Inc. All practice items are original — not actual test questions.
           Practice results are estimates, not IQ scores. Everything is saved only on this device.
         </footer>
