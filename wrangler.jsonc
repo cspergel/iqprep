@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "braincamp",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist-site",
+    "html_handling": "auto-trailing-slash"
+  },
+  "routes": [
+    { "pattern": "braincamp.app", "custom_domain": true },
+    { "pattern": "www.braincamp.app", "custom_domain": true }
+  ]
+}

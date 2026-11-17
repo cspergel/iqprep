@@ -5,3 +5,6 @@ dist
 
 # Research notes on the real test stay local only
 docs/research/
+dist-site
+.wrangler
+.hallmark/
