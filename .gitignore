@@ -1,0 +1,7 @@
+node_modules
+dist
+*.log
+.claude/settings.local.json
+
+# Research notes on the real test stay local only
+docs/research/

@@ -1,0 +1,89 @@
+# Brain Camp 🏕️
+
+A playful, research-informed practice kit for the thinking skills measured by WISC-V-style assessments.
+It's built for children aged 4–16, with gentler practice for campers under 9.
+
+> Independent project. Not affiliated with or endorsed by Pearson or the Wechsler tests. WISC® is a
+> trademark of NCS Pearson, Inc. **Every item is original and generated on the fly. None are real test questions.**
+> Practice scores are estimates, not IQ scores.
+
+## What's inside
+
+- **21 games, one for each WISC-V subtest:**
+  - Primary: SI, VC, BD, VP, MR, FW, DS, PS, CD, SS.
+  - Secondary: IN, CO, PC, AR, LN, CA.
+  - Complementary: NSL, NSQ, IST, DST, RST.
+- **Item generators.** Every item is generated from a seed at a target difficulty, measured on an age-equivalent scale. Uniqueness checks guarantee exactly one correct answer.
+- **Three ways to play:**
+  - **Tutor mode ("Learn with Pip"):** read-aloud, a worked example, graduated hints, try-again, and an explanation after every item.
+  - **Practice:** adapts to roughly 78% success, backs off after two misses, stretches after three hits, and never ends on a miss.
+    Campers under 9 get a gentler version: about 88% success, a warm-up start below their age that fades as the game
+    learns their level, and an easier item after a single miss.
+  - **Challenges (test mode):** standard order, start points, the reverse rule, discontinue rules and time limits. Feedback comes only at the end.
+- **Tests you can customize:**
+  - Five mock batteries: Quick FSIQ check, FSIQ, Primary, Full, and Complete with the complementary subtests.
+  - A test builder: pick games, items per game, test-rules vs adaptive style, timers, and feedback now or at the end.
+- **Reports with the full score set:**
+  - Subtest scaled scores, FSIQ, all five primary indexes, ancillary indexes (GAI, CPI, NVI, QRI, AWMI) and complementary indexes (NSI, STI, SRI).
+  - Percentiles, 90/95% confidence intervals, descriptive classifications and age equivalents.
+  - Strengths and weaknesses vs MIS and MSS-P/MSS-F, pairwise comparisons, and process scores (BDn, rotation errors, DSf/DSb/DSs, longest spans, CAr/CAs, error counts).
+  - Plain-language insights and recommendations.
+- **Learning science:**
+  - Spaced review of missed skills (Leitner boxes at ½, 1, 3, 7, 14 and 30 days) and interleaved daily quests.
+  - A Khan-style mastery ladder per skill, with decay.
+  - Metacognition prompts ("how sure are you?") and growth-mindset praise of process.
+- **Strategy Toolbox.** Several *alternative* approaches per game, plus general thinking moves. It stays closed until the child opens it and never appears in tests, so kids build flexible thinking instead of locking into one recipe.
+- **Fun layer.** Pip the fox, a camp map with zones, stars, levels, streaks that forgive one missed day, camp patches, confetti and sound effects.
+- **Private by design.** No backend, no accounts, no tracking. Everything is stored in the browser's localStorage, with JSON export and import.
+
+## Scoring model (short version)
+
+- **Power and span subtests.** Ability is estimated with a Rasch-style model and an EAP estimate, on an age-equivalent difficulty scale. It's converted to a scaled score (mean 10, SD 3) for the child's exact age.
+- **Speeded subtests.** Raw work rate is compared to approximate age expectations.
+- **Composites.** Sum of scaled scores, scaled with the correlated-sum SD: `SD = 3√(k + k(k−1)r̄)`, using published WISC-V subtest intercorrelations. This reproduces Pearson's sample-report composites within ±1.
+- **Confidence intervals.** Built around the estimated true score using the standard error of estimation, as Wechsler reports do.
+
+See `src/core/scoring.ts`.
+
+## Develop
+
+```bash
+npm install
+npm run dev        # http://localhost:5173
+npm test           # unit + contract tests
+npm run build      # static site in dist/
+```
+
+## Deploy (static hosting, no server needed)
+
+The build output in `dist/` is a fully static site. It uses relative asset paths and hash routing, so it works
+from any host or sub-folder:
+
+- **Netlify / Cloudflare Pages / Vercel:** build command `npm run build`, publish directory `dist`.
+- **GitHub Pages:** push `dist/` to a `gh-pages` branch, or use an Actions workflow.
+- **Any web server or shared hosting:** upload the contents of `dist/`.
+
+No AI or API is used at runtime. Every question is generated in the browser by plain code, or comes from the
+built-in word banks, so hosting is free and the app works offline.
+
+### Install on an iPad (home-screen app, works offline)
+
+1. Open the site in **Safari**. The site must be served over HTTPS; Netlify, Cloudflare Pages and GitHub Pages all do this.
+2. Tap **Share → Add to Home Screen**.
+3. Launch Brain Camp from the new icon once while online. After that it works without internet.
+
+Notes:
+
+- **Progress is saved on that device.** The home-screen app keeps its own storage, separate from Safari tabs, so use the home-screen icon consistently. To move progress, use Grown-ups → Settings → Export/Import backup.
+- **Updates.** After you deploy a new version, the app picks it up the next time it is opened online.
+- **Read-aloud** uses the iPad's built-in voices. Speech starts after the child's first tap, which is an iOS rule.
+
+## Project layout
+
+```
+src/core/       types, scoring (IRT + composites), session engine, progress/mastery, reports, storage, speech
+src/subtests/   one folder per subtest (generator + scorer + player + guide + tests); registry.ts
+src/screens/    Home (camp map), Zone, GameHub, Runner, Done, TestCenter, Grownups (reports/settings), Learn, Patches
+src/ui/         shared kit (choices, timer, number pad, Pip), shapes, charts, strategy toolbox
+docs/           the subtest builder's guide and coverage notes
+```
