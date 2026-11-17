@@ -2,5 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://iqprep.app/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://iqprep.app/play/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://iqprep.app/guides/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://iqprep.app/guides/before-a-test/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://iqprep.app/guides/words-and-ideas/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://iqprep.app/guides/shapes-and-space/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://iqprep.app/guides/patterns-and-rules/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://iqprep.app/guides/memory/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://iqprep.app/guides/speed/</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://iqprep.app/guides/naming-and-symbols/</loc><lastmod>2026-11-17</lastmod></url>
   <url><loc>https://iqprep.app/privacy/</loc><lastmod>2026-11-17</lastmod></url>
 </urlset>

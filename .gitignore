@@ -8,3 +8,4 @@ docs/research/
 dist-site
 .wrangler
 .hallmark/
+.tmp/
