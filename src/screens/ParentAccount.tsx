@@ -154,7 +154,10 @@ function AccountForm({ mode, setMode, busy, msg, onSignin, onCreate }: {
           </label>
         </>
       )}
-      <div><button className="btn primary" type="submit" disabled={busy || (mode === 'create' && !consent)}>{mode === 'signin' ? 'Sign in' : 'Create account'}</button></div>
+      <div className="row" style={{ gap: 14, alignItems: 'center' }}>
+        <button className="btn primary" type="submit" disabled={busy || (mode === 'create' && !consent)}>{mode === 'signin' ? 'Sign in' : 'Create account'}</button>
+        {mode === 'signin' && <a className="small" href="/reset/" target="_blank" rel="noopener">Forgot your password?</a>}
+      </div>
       {msg && <p className="small" role="status">{msg}</p>}
     </form>
   );

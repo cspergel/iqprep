@@ -10,6 +10,7 @@ import { isAdult } from '../src/core/cloud';
 interface Env {
   ASSETS: Fetcher;
   DB: D1Database;
+  EMAIL: { send(message: { to: string; from: { email: string; name: string }; subject: string; text: string; html: string }): Promise<{ messageId: string }> };
 }
 
 const SITE = 'https://iqprep.app';
@@ -18,6 +19,8 @@ const MINOR_COOKIE = 'iqp_ag';
 const SESSION_DAYS = 30;
 const MAX_BACKUP_BYTES = 2_000_000;
 const PBKDF2_ITERATIONS = 100_000;
+const RESET_MINUTES = 60;
+const FROM = { email: 'no-reply@iqprep.app', name: 'IQ Prep' };
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -110,6 +113,67 @@ async function api(req: Request, env: Env, url: URL): Promise<Response> {
     return json({ ok: true }, 200, { 'set-cookie': clearSession() });
   }
 
+  if (route === 'reset/request' && method === 'POST') {
+    const body = await readJson(req);
+    const email = normEmail(body.email);
+    // The answer is the same whether or not the account exists, so the form cannot be used to probe emails.
+    const done = json({ ok: true });
+    if (!email) return json({ error: 'That email address looks incomplete.' }, 400);
+    if (!(await allow(env, `reset:${clientIp(req)}`, 10, 3600)) || !(await allow(env, `reset:${email}`, 3, 3600))) {
+      return json({ error: 'Too many requests. Wait an hour and try again.' }, 429);
+    }
+    const row = await env.DB.prepare('SELECT id FROM users WHERE email = ?').bind(email).first<{ id: string }>();
+    if (!row) return done;
+    const token = b64url(randomBytes(32));
+    await env.DB.prepare('INSERT INTO resets (id, user_id, expires_at) VALUES (?, ?, ?)')
+      .bind(await sha256hex(token), row.id, Date.now() + RESET_MINUTES * 60_000).run();
+    const link = `${SITE}/reset/#t=${token}`;
+    try {
+      await env.EMAIL.send({
+        to: email,
+        from: FROM,
+        subject: 'Reset your IQ Prep password',
+        text: `Someone asked to reset the password for the IQ Prep parent account ${email}.
+
+To choose a new password, open this link within ${RESET_MINUTES} minutes:
+${link}
+
+If this wasn't you, ignore this email; your password stays the same.
+
+IQ Prep, ${SITE}`,
+        html: `<p>Someone asked to reset the password for the IQ Prep parent account <strong>${escapeHtml(email)}</strong>.</p><p><a href="${link}">Choose a new password</a> (the link works for ${RESET_MINUTES} minutes and only once).</p><p>If this wasn't you, ignore this email; your password stays the same.</p><p>IQ Prep, <a href="${SITE}">iqprep.app</a></p>`,
+      });
+    } catch (e) {
+      console.error('reset email failed', (e as { code?: string }).code ?? e);
+    }
+    return done;
+  }
+
+  if (route === 'reset/confirm' && method === 'POST') {
+    const body = await readJson(req);
+    const token = typeof body.token === 'string' ? body.token : '';
+    const password = typeof body.password === 'string' ? body.password : '';
+    if (password.length < 10) return json({ error: 'Use a password of at least 10 characters.' }, 400);
+    if (!(await allow(env, `confirm:${clientIp(req)}`, 20, 3600))) return json({ error: 'Too many tries. Wait an hour and try again.' }, 429);
+    const id = await sha256hex(token);
+    const row = token
+      ? await env.DB.prepare('SELECT user_id, expires_at, used_at FROM resets WHERE id = ?').bind(id).first<{ user_id: string; expires_at: number; used_at: number | null }>()
+      : null;
+    if (!row || row.used_at || row.expires_at < Date.now()) {
+      return json({ error: 'This reset link has expired or was already used. Ask for a new one.' }, 400);
+    }
+    const salt = randomBytes(16);
+    const hash = await hashPassword(password, salt);
+    await env.DB.batch([
+      env.DB.prepare('UPDATE users SET pw_hash = ?, pw_salt = ? WHERE id = ?').bind(hex(hash), hex(salt), row.user_id),
+      env.DB.prepare('UPDATE resets SET used_at = ? WHERE id = ?').bind(Date.now(), id),
+      env.DB.prepare('DELETE FROM resets WHERE user_id = ? AND id != ?').bind(row.user_id, id),
+      // Changing the password signs out every device.
+      env.DB.prepare('DELETE FROM sessions WHERE user_id = ?').bind(row.user_id),
+    ]);
+    return json({ ok: true });
+  }
+
   // Everything below needs a signed-in account.
   const userId = await currentUser(req, env);
   if (!userId) return json({ error: 'Please sign in again.' }, 401);
@@ -138,6 +202,7 @@ async function api(req: Request, env: Env, url: URL): Promise<Response> {
     await env.DB.batch([
       env.DB.prepare('DELETE FROM backups WHERE user_id = ?').bind(userId),
       env.DB.prepare('DELETE FROM sessions WHERE user_id = ?').bind(userId),
+      env.DB.prepare('DELETE FROM resets WHERE user_id = ?').bind(userId),
       env.DB.prepare('DELETE FROM users WHERE id = ?').bind(userId),
     ]);
     return json({ ok: true }, 200, { 'set-cookie': clearSession() });
@@ -261,6 +326,10 @@ function unhex(s: string): Uint8Array {
   const out = new Uint8Array(s.length / 2);
   for (let i = 0; i < out.length; i++) out[i] = parseInt(s.slice(i * 2, i * 2 + 2), 16);
   return out;
+}
+
+function escapeHtml(s: string): string {
+  return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 }
 
 function b64url(b: Uint8Array): string {
