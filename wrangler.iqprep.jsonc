@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "iqprep",
+  "compatibility_date": "2026-11-01",
+  "assets": { "directory": "./site-iqprep", "html_handling": "auto-trailing-slash" },
+  "routes": [
+    { "pattern": "iqprep.app", "custom_domain": true },
+    { "pattern": "www.iqprep.app", "custom_domain": true }
+  ]
+}
