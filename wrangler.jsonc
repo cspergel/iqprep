@@ -10,12 +10,6 @@
     "not_found_handling": "404-page",
     "run_worker_first": true
   },
-  "d1_databases": [
-    { "binding": "DB", "database_name": "iqprep", "database_id": "4fe88677-63e5-4334-b268-6541d6e851ed", "migrations_dir": "migrations" }
-  ],
-  "send_email": [
-    { "name": "EMAIL", "allowed_sender_addresses": ["no-reply@iqprep.app"] }
-  ],
   "routes": [
     { "pattern": "iqprep.app", "custom_domain": true },
     { "pattern": "www.iqprep.app", "custom_domain": true },

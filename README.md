@@ -48,16 +48,15 @@ See `src/core/scoring.ts`.
 ## iqprep.app (live site)
 
 - `site/` is the parents' landing page, privacy page and 404; the game builds into `/play/`.
-- `worker/index.ts` serves both, adds the parent-account API (`/api/*`, Cloudflare D1, schema in `migrations/`),
-  and redirects braincamp.app and www hosts to https://iqprep.app.
-- **Parent accounts are adults only:** a neutral birth-month question (not stored); an under-18 answer closes
-  sign-up on that browser. Backups are minimised in `src/core/cloud.ts` before upload: names become
-  "Camper 1"…, birthdays are cut to the month, the grown-up PIN is dropped.
-- **Ads are off.** `site/ads.js` loads non-personalised AdSense on the parents' pages only (never in `/play/`)
-  once a publisher ID and slot are filled in. Before that: mark the site child-directed in AdSense, add a
-  consent message for EEA/UK visitors, add `ads.txt`, and update the privacy page.
-- Deploy: `npm run deploy` (builds `dist-site/` and runs `wrangler deploy`). New migrations:
-  `npx wrangler d1 migrations apply iqprep --remote`.
+- `worker/index.ts` serves both and redirects braincamp.app and www hosts to https://iqprep.app.
+- No accounts and no tracking: progress lives in the browser (export/import from Grown-ups).
+  An adult-only parent-account version with email reset existed briefly (git history, Nov 2026) and was
+  removed to avoid the email-sending cost.
+- **Ads:** Google AdSense Auto ads (ca-pub-8018181707149468) on the parents' pages only (`site/index.html`,
+  `privacy/`, `404.html`), requesting non-personalised ads. Never add the ad script to the game (`index.html` at
+  the repo root builds `/play/`). `site/ads.txt` authorises Google. Child-directed treatment is set site-wide in
+  Search Console; exclude `iqprep.app/play/` in AdSense's Auto ads page exclusions too.
+- Deploy: `npm run deploy` (builds `dist-site/` and runs `wrangler deploy`).
 
 ## Develop
 

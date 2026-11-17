@@ -14,7 +14,6 @@ import { BarList, ChartWithTable, DotPlot, LineChart, type DotRow } from '../ui/
 import { Mascot } from '../ui/kit';
 import { inputStyle } from './Welcome';
 import { Gallery } from './Gallery';
-import { ParentAccount } from './ParentAccount';
 
 const TABS: [string, string][] = [
   ['overview', 'Overview'], ['reports', 'Score reports'], ['progress', 'Progress'], ['skills', 'Skills'], ['samples', 'Question gallery'],
@@ -605,12 +604,8 @@ function SettingsView() {
         </div>
       </Section>
 
-      <Section title="Parent account (optional)">
-        <ParentAccount />
-      </Section>
-
       <Section title="Your data">
-        <p className="small" style={{ marginTop: 0 }}>Progress is stored in this browser. Export a backup file, or use a parent account above, to move it to another device.</p>
+        <p className="small" style={{ marginTop: 0 }}>All progress is stored only in this browser. Export a backup to move it to another device.</p>
         <div className="row">
           <button className="btn ghost" onClick={exportData}>⬇️ Export backup</button>
           <button className="btn ghost" onClick={() => fileRef.current?.click()}>⬆️ Import backup</button>
